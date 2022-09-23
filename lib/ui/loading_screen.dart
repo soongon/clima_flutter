@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:clima_flutter/services/location_service.dart';
 import 'package:clima_flutter/services/weather_api_service.dart';
@@ -19,7 +18,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     //1. GPS 센서에서 현재 좌표를 받아온다.
     LocationService locationService = LocationService();
     await locationService.getCurrentLocation();
-    print('${locationService.latitude}, ${locationService.longitude}');
+    // print('${locationService.latitude}, ${locationService.longitude}');
 
     //2. 현재좌표를 이용해서 날씨API 서비스에서 날씨정보를 요청한다.
     WeatherApiService weatherApiService = WeatherApiService();
@@ -27,7 +26,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     var weatherDataJson = await weatherApiService.getWeatherInfoWithLocation(
         latitude: locationService.latitude, longitude: locationService.longitude);
 
-    print(weatherDataJson);
+    // print(weatherDataJson);
 
     //3. location 화면으로 이동
     Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -45,7 +44,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: SpinKitSpinningLines(
           color: Colors.purple,

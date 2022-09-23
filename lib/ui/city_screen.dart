@@ -10,13 +10,13 @@ class CityScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/images/city_background.jpg'),
             fit: BoxFit.cover,
           ),
         ),
-        constraints: BoxConstraints.expand(),
+        constraints: const BoxConstraints.expand(),
         child: Column(
           children: [
             Align(
@@ -32,12 +32,12 @@ class CityScreen extends StatelessWidget {
               ),
             ),
             Container(
-              padding: EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(20.0),
               child: TextField(
                 onChanged: (value) {
                   cityName = value;
                 },
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   filled: true,
                   hintText: '도시 이름을 적어주세요.',
                   hintStyle: TextStyle(
@@ -54,7 +54,7 @@ class CityScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.pop(context, cityName);
               },
-              child: Text(
+              child: const Text(
                 'Get Weather',
                 style: kButtonTextStyle,
               ),
