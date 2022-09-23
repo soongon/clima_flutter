@@ -30,7 +30,10 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # 좌표가져오기
   geolocator: ^9.0.1
+  # http 클라이언트
+  http: ^0.13.5
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
