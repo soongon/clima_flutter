@@ -1,3 +1,4 @@
+import 'package:clima_flutter/services/location_service.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -10,26 +11,17 @@ class LoadingScreen extends StatefulWidget {
 
 class _LoadingScreenState extends State<LoadingScreen> {
 
+  void _currentPosition() async {
+    LocationService locationService = LocationService();
+    await locationService.getCurrentLocation();
 
-  void _getCurrentLocation() async {
-
-    LocationPermission permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      Geolocator.requestPermission();
-    } else {
-      Position position = await Geolocator.getCurrentPosition();
-      // 동기 vs 비동기(async)
-      // 동기 - 메모리상에서 하는 작업
-      // 비동기 - IO 에서는 반드시 비동기 작업..
-
-      print(position);
-    }
+    print('${locationService.latitude}, ${locationService.longitude}');
   }
 
   @override
   void initState() {
     super.initState();
-    _getCurrentLocation();
+    _currentPosition();
   }
 
   @override
@@ -38,7 +30,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
       body: Center(
         child: ElevatedButton(
           child: Text('위치정보 가져오기'),
-          onPressed: () { _getCurrentLocation(); },
+          onPressed: () {  },
         ),
       ),
     );
