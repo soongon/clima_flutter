@@ -65,7 +65,13 @@ class _LocationScreenState extends State<LocationScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      // 1. 현재위치의 좌표를 기반으로 날씨정보 확보
+                      var weatherData =
+                        await WeatherApiService().getWeatherInfoWithCurrentLocation();
+                      // 2. 화면 갱신
+                      _updateUI(weather: weatherData);
+                    },
                     child: Icon(
                       Icons.near_me,
                       size: 50.0,
