@@ -1,4 +1,5 @@
 import 'package:clima_flutter/services/weather.dart';
+import 'package:clima_flutter/services/weather_api_service.dart';
 import 'package:clima_flutter/ui/city_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:clima_flutter/utilities/constants.dart';
@@ -76,8 +77,10 @@ class _LocationScreenState extends State<LocationScreen> {
                         return CityScreen();
                       }));
                       if (cityName != null && cityName != '') {
-                        // var weatherDataJSON = getWeatherDataWithCityName(cityName);
-                        // updateUI(weatherDataJSON);
+                        var weatherDataJSON =
+                          await WeatherApiService()
+                              .getWeatherDataWithCityName(cityName: cityName);
+                        _updateUI(weather: weatherDataJSON);
                       }
                     },
                     child: Icon(
