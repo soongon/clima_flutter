@@ -3,7 +3,8 @@ import 'package:http/http.dart' as http;
 
 class WeatherApiService {
 
-  Future<dynamic> getWeatherDataWithCityName({required String cityName}) async {
+  Future<dynamic> getWeatherDataWithCityName(
+      {required String cityName}) async {
     var url = Uri.https(
         'api.openweathermap.org',
         '/data/2.5/weather',
