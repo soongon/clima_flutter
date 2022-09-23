@@ -1,6 +1,8 @@
+import 'dart:convert';
+
 import 'package:clima_flutter/services/location_service.dart';
+import 'package:clima_flutter/services/weather_api_service.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({Key? key}) : super(key: key);
@@ -16,6 +18,14 @@ class _LoadingScreenState extends State<LoadingScreen> {
     await locationService.getCurrentLocation();
 
     print('${locationService.latitude}, ${locationService.longitude}');
+
+    WeatherApiService weatherApiService = WeatherApiService();
+    var weatherDataJson = await weatherApiService.getWeatherInfoWithLocation(
+        latitude: locationService.latitude, longitude: locationService.longitude);
+
+    print(weatherDataJson);
+
+
   }
 
   @override
