@@ -30,7 +30,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
     print(weatherDataJson);
 
     //3. location 화면으로 이동
-    _navigateNextPage(context);
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+        return LocationScreen(weatherData: weatherDataJson);
+    }));
 
   }
 
@@ -39,13 +41,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
     super.initState();
     //1.날씨 정보 확보
     _getWeatherJsonData();
-  }
-
-  void _navigateNextPage(BuildContext context) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const LocationScreen())
-    );
   }
 
   @override
