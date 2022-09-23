@@ -16,35 +16,30 @@ class LocationScreen extends StatefulWidget {
 class _LocationScreenState extends State<LocationScreen> {
 
   late int temperature;
-  late String cityName;
   late String weatherIcon;
   late String weatherMessage;
 
-  void _updateUI() {
-    // 1. 이전화면에서 전달된 데이터를 확보
-    var weather = widget.weatherData;
+  void _updateUI({required weather}) {
+
     //print('Location Screen: \n$weather');
     // 2. 전달된 데이터는 JSON 데이터 이다.
     // 따라서, JSON 을 파싱하여 원하는 데이터를 뽑아낸다.
     // 온도, 날씨아이콘, 도시명
-    print(weather['name']);
-    print(weather['main']['temp'].toInt());
-    print(weather['weather'][0]['id']);
-
     setState(() {
       temperature = weather['main']['temp'].toInt();
-      cityName = weather['name'];
       weatherIcon =
           WeatherModel().getWeatherIcon(weather['weather'][0]['id']);
-      weatherMessage = WeatherModel().getMessage(weather['main']['temp'].toInt());
+      weatherMessage =
+"${WeatherModel().getMessage(weather['main']['temp'].toInt())} in ${weather['name']}!";
     });
   }
 
   @override
   void initState() {
     super.initState();
-
-    _updateUI();
+    // 1. 이전화면에서 전달된 데이터를 확보
+    var weatherDataJson = widget.weatherData;
+    _updateUI(weather: weatherDataJson);
   }
 
   @override
@@ -76,10 +71,14 @@ class _LocationScreenState extends State<LocationScreen> {
                     ),
                   ),
                   TextButton(
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    onPressed: () async {
+                      var cityName = await Navigator.push(context, MaterialPageRoute(builder: (context) {
                         return CityScreen();
                       }));
+                      if (cityName != null && cityName != '') {
+                        // var weatherDataJSON = getWeatherDataWithCityName(cityName);
+                        // updateUI(weatherDataJSON);
+                      }
                     },
                     child: Icon(
                       Icons.location_city,
@@ -106,7 +105,7 @@ class _LocationScreenState extends State<LocationScreen> {
               Padding(
                 padding: EdgeInsets.only(right: 15.0),
                 child: Text(
-                  "$weatherMessage in $cityName!",
+                  weatherMessage,
                   textAlign: TextAlign.right,
                   style: kMessageTextStyle,
                 ),
